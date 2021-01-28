@@ -10,7 +10,7 @@ function Login(props) {
         <LoginLayout>
             <div className="loginContainer">
                 <h1>
-                    login
+                    Login
                 </h1>
                 <form action="">
                     <input value={email} onChange={(event)=>setEmail(event.target.value)}
