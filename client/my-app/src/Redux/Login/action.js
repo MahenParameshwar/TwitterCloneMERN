@@ -30,7 +30,7 @@ export function loginErrorSuccessReset() {
 export const makeLoginRequest = ({ email, password }) => (dispatch) => {
   dispatch(loginRequest());
   axios
-    .post(`${process.env.REACT_APP_BASE_URL}/api/login`, {
+    .post(`${process.env.REACT_APP_SERVER_URL}/api/login`, {
       email,
       password,
     })

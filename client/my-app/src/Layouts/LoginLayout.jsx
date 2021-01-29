@@ -1,9 +1,9 @@
 import React from 'react';
-import '../Styles/login.css'
+import styles from '../Styles/login.module.css'
 function LoginLayout(props) {
     return (
-        <div className="backgroundColorBlue height_100vh padding_20t">
-            <div className="wrapper">
+        <div className={[styles.backgroundColorBlue,styles.padding_20t,styles.height_100vh].join(' ')}>
+            <div className={styles.wrapper}>
                 {props.children}
             </div>
         </div>

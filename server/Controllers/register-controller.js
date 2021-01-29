@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const User = require("../Model/UserModel");
-
+const bcrypt = require("bcrypt");
 const registerUser = async (req, res) => {
   try {
     const { email, password, firstname, lastname, username } = req.body;
@@ -20,10 +20,11 @@ const registerUser = async (req, res) => {
         message,
       });
     }
+    const hashPassword = await bcrypt.hash(password, 10);
 
     User.create({
       email,
-      password,
+      password: hashPassword,
       firstname,
       lastname,
       username,
@@ -33,6 +34,7 @@ const registerUser = async (req, res) => {
       });
     });
   } catch (err) {
+    console.log(err.message);
     return res.status(400).json({
       error: true,
       message: "Something wen wrong",

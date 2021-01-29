@@ -3,10 +3,14 @@ import thunk from "redux-thunk";
 import { registerReducer } from "./Register/reducer";
 
 import { loginReducer } from "./Login/reducer";
+import { userReducer } from "./User/reducer";
+import { postsReducer } from "./Posts/reducer";
 
 const rootReducer = combineReducers({
   register: registerReducer,
   login: loginReducer,
+  user: userReducer,
+  posts: postsReducer,
 });
 
 const createComposer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

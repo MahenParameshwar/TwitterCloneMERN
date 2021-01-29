@@ -1,0 +1,66 @@
+.post {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing);
+    cursor: pointer;
+    border-bottom: 1px solid var(--lightGrey);
+    flex-shrink: 0;
+}
+
+.mainContentContainer {
+    flex: 1;
+    display: flex;
+}
+
+.postContentContainer {
+    padding-left: var(--spacing);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.username,
+.date {
+    color: var(--greyText)
+}
+
+.displayName{
+    font-weight: bold;
+}
+
+.displayName:hover{
+    text-decoration: underline;
+}
+
+.postFooter {
+    display: flex;
+    align-items: center;
+}
+
+.postFooter .postButtonContainer {
+    flex: 1;
+    display: flex;
+}
+
+.postFooter .postButtonContainer button {
+    padding: 2px 5px;
+}
+
+.header a,
+.header span {
+    padding-right: 5px;
+}
+
+.postButtonContainer button:hover{
+    background-color: #dfedff;
+    color: var(--blue);
+    border-radius: 50%;
+}
+
+.postOptionButton{
+    outline: none;
+}
+
+.red{
+    color: var(--red);
+}

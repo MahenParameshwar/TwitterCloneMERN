@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, Redirect } from 'react-router-dom';
 import LoginLayout from '../Layouts/LoginLayout';
-import '../Styles/login.css'
+import styles from '../Styles/login.module.css'
 
 import {useDispatch, useSelector} from 'react-redux'
 
@@ -36,7 +36,8 @@ function Register(props) {
     const [open, setOpen] = React.useState(false);
     const dispatch = useDispatch();
     const [severity,setSeverity] = useState("success");
-
+    const token = localStorage.getItem('token')
+    
     const handleRegister = (e)=>{
         e.preventDefault();
         dispatch(makeRegisterRequest({firstname,lastname,username,email,password}));
@@ -69,12 +70,13 @@ function Register(props) {
       };
 
     return (
+      token ? <Redirect to="/" /> :
         <LoginLayout>
-            <div className="loginContainer">
+            <div className={styles.loginContainer}>
                 <h1>
                     Register
                 </h1>
-                <form onSubmit={handleRegister}>
+                <form className={styles.form} onSubmit={handleRegister}>
                     <input value={firstname} onChange={(event)=>setFirstName(event.target.value)}
                      type="text" placeholder="First Name" required/>
                      <input value={lastname} onChange={(event)=>setLastName(event.target.value)}
