@@ -18,19 +18,38 @@ function PostContainer(props) {
             }
         })
         .then(res=>{
-            let index = posts.findIndex(post=>post._id === res.data.post._id)
-            let newPosts = [...posts]
-            newPosts.splice(index,1,res.data.post)
-            console.log(newPosts)
-            dispatch(getPostsSuccess(newPosts))
+           console.log(res)
+            dispatch(getPostsSuccess(res.data.results))
            
         })
-        .catch()
+        .catch(err=>{
+
+        })
+    }
+
+    const handleRetweet = (id)=>{
+        
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/api/auth/post/${id}/retweet`,{},{
+            headers:{
+                Authorization: `bearer ${token}`,
+            }
+        })
+        .then(res=>{
+            
+            dispatch(getPostsSuccess(res.data.results))
+           
+        })
+        .catch(err=>{
+
+        })
     }
     return (
         <div className={styles.postsContainer}>
             {
-                posts.map(post=><Post key={post._id} {...post} handleLike={handleLike} userId={user._id} />)
+                posts.map(post=><Post key={post._id} {...post} 
+                    handleLike={handleLike} 
+                    handleRetweet={handleRetweet} 
+                    userId={user._id} />)
             }
         </div>
     );

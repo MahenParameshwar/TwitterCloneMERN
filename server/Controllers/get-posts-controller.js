@@ -8,15 +8,23 @@ const getPostsController = async (req, res) => {
       path: "postedBy",
       select: { password: 0, email: 0 },
     })
+    .populate({
+      path: "retweetData",
+    })
     .sort({
       createdAt: -1,
     })
-    .then((results) => {
+    .then(async (results) => {
+      results = await User.populate(results, {
+        path: "retweetData.postedBy",
+        select: { password: 0, email: 0 },
+      });
       return res.status(200).json({
         results,
       });
     })
     .catch((err) => {
+      console.log(err);
       return res.status(400).json({
         message: err.message,
       });

@@ -9,13 +9,42 @@ const inlineStyle = {
         outline:"none"
     }
 }
-function Post({content,postedBy,createdAt,_id,handleLike,likes,userId}) {
+function Post({content,retweetData,postedBy,createdAt,_id,handleLike,likes,userId,retweetUsers,handleRetweet }) {
+    
+    const isRetweet = retweetData !== undefined;
+    const retweetedBy = isRetweet ? postedBy.username : null;
+    console.log(isRetweet)
     const hasLiked = ()=>{
         return likes.includes(userId)
     }
+    const hasRetweeted = ()=>{
+        return retweetUsers.includes(userId)
+    }
+
+    if(isRetweet){
+        content = retweetData.content
+        postedBy = retweetData.postedBy
+        createdAt = retweetData.createdAt
+        _id = retweetData._id
+        likes = retweetData.likes
+        retweetUsers = retweetData.retweetUsers
+    }
+
+    if(_id == null){
+        return alert('Post data is null')
+    }
+
     return (
         postedBy ?
         <div className={styles.post}>
+            {
+                isRetweet ? (
+                <div className = {styles.retweetContainer}>
+                     <i className='fas fa-retweet'></i>
+                    <span>Retweeted by <Link to={`/profile/`}>@{retweetedBy}</Link> </span> 
+                </div> )
+                : null
+            }
                 <div className={styles.mainContentContainer}>
                     <ImageContainer profilePic={postedBy.profilePic} />
                     <div className={styles.postContentContainer}>
@@ -36,8 +65,12 @@ function Post({content,postedBy,createdAt,_id,handleLike,likes,userId}) {
                                     </button>
                                 </div>
                                 <div className={styles.postButtonContainer}>
-                                    <button  style={{...inlineStyle.outline}}>
+                                    <button  style={{...inlineStyle.outline}}
+                                    onClick={()=>handleRetweet(_id)}
+                                    className={`${styles.postOptionButton} ${hasRetweeted() ? styles.green : ""}`} 
+                                    >
                                         <i className='fas fa-retweet'></i>
+                                        <span> {retweetUsers.length || ""}</span>
                                     </button>
                                 </div>
                                 <div className={styles.postButtonContainer}>
@@ -45,6 +78,7 @@ function Post({content,postedBy,createdAt,_id,handleLike,likes,userId}) {
                                     className={`${styles.postOptionButton} ${hasLiked() ? styles.red : ""}`} 
                                     onClick={()=>handleLike(_id)}>
                                         <i className='far fa-heart'></i>
+                                        
                                         <span> {likes.length || ""}</span>
                                         
                                     </button>

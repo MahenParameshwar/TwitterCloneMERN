@@ -64,3 +64,24 @@
 .red{
     color: var(--red);
 }
+
+.postButtonContainer button.red:hover{
+    color: var(--red);
+    background-color: var(--redBackground);
+}
+
+.green{
+    color: var(--green);
+}
+
+.postButtonContainer button.green:hover{
+    color: var(--green);
+    background-color: var(--greenBackground);
+}
+
+.retweetContainer{
+    padding-left: 35px;
+    font-size: 13px;
+    color: var(--greyText);
+    margin-bottom: 5px;
+}
