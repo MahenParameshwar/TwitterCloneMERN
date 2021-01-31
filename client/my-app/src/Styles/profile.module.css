@@ -1,0 +1,116 @@
+.errorUser{
+    padding: var(--spacing);
+}
+
+.coverPhotoContainer{
+    height: 180px;
+    background-color: var(--blue);
+    position: relative;
+}
+
+/*.userImageContainer*/
+.coverPhotoContainer > div:first-child{
+    height: 132px;
+    width: 132px;
+    margin-left: var(--spacing);
+    position: absolute;
+    bottom: -66px;
+}
+
+.coverPhotoContainer > div:first-child > img{
+    border: 4px solid #fff;
+}
+
+.profileHeaderContainer .profileButtonsContainer {
+    text-align: right;
+    padding: var(--spacing);
+    min-height: 66px;
+}
+
+.profileButton {
+    border: 1px solid var(--blue);
+    color: var(--blue);
+    font-weight: bold;
+    padding: 5px 15px;
+    border-radius: 60px;
+    display: inline-block;
+    margin-left: var(--spacing);
+}
+
+.profileButton:hover {
+    background-color: var(--blueBackground);
+}
+
+.followButton {
+    border: 1px solid var(--blue);
+    color: var(--blue);
+    font-weight: bold;
+    padding: 5px 15px;
+    border-radius: 60px;
+    display: inline-block;
+    margin-left: var(--spacing);
+}
+
+.profileButton:hover,
+.followButton:hover {
+    background-color: var(--blueBackground);
+    color:  var(--blue);
+}
+
+.following{
+    background-color: var(--blue);
+    color: #fff;
+}
+
+.profileHeaderContainer .userDetailsContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 0 var(--spacing);
+}
+
+.followersContainer .value {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.followersContainer span:not(.value) {
+    color: var(--greyText);
+}
+
+.followersContainer a {
+    margin-right: 15px;
+}
+
+.followersContainer a:hover {
+    border-bottom: 1px solid #000;
+}
+
+.displayName{
+    font-weight: bold;
+}
+
+.userName{
+    color: var(--greyText);
+}
+
+.tabsContainer {
+    display: flex;
+    border-bottom: 1px solid var(--lightGrey);
+    flex-shrink: 0;
+   
+}
+
+.tab {
+    flex: 1;
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--greyText);
+    font-weight: bold;
+}
+
+.tab:hover {
+    color: var(--blue);
+    background-color: var(--blueBackground);
+}

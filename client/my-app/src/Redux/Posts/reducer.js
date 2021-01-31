@@ -5,10 +5,17 @@ import {
   GET_POSTS_SUCCESS,
   GET_POSTS_FAILURE,
   GET_POSTS_REQUEST,
+  GET_SINGLE_POST_REQUEST,
+  GET_SINGLE_POST_SUCCESS,
+  GET_SINGLE_POST_FAILURE,
+  DELETE_POST_SUCCESS,
+  DELETE_POST_FAILURE,
+  DELETE_POST_REQUEST,
 } from "./actionConstants";
 
 const initState = {
   posts: [],
+  post: null,
   isLoading: false,
   error: false,
   message: "",
@@ -25,12 +32,13 @@ export const postsReducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
-        posts: [payload, ...state.posts],
+        posts: [...payload],
       };
     case ADD_POST_FAILURE:
       return {
         ...state,
         isLoading: false,
+        error: true,
         message: "Colud not add post",
       };
     case GET_POSTS_REQUEST:
@@ -48,7 +56,43 @@ export const postsReducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
+        error: true,
+        message: "Colud not load post",
+      };
+    case GET_SINGLE_POST_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case GET_SINGLE_POST_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        post: payload,
+      };
+    case GET_SINGLE_POST_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
         message: "Colud not get post",
+      };
+    case DELETE_POST_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case DELETE_POST_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+      };
+    case DELETE_POST_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        message: "Colud not delete post",
       };
 
     default:

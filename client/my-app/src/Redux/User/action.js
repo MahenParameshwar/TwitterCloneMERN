@@ -26,7 +26,7 @@ const getUserDataFailure = () => {
 
 export const makeGetUserDataRequest = (token) => (dispatch) => {
   dispatch(getUserDataRequest());
-
+  console.log(token);
   return axios
     .get(`${process.env.REACT_APP_SERVER_URL}/api/auth/user`, {
       headers: {

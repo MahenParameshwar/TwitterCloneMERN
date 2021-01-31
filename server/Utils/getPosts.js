@@ -1,9 +1,8 @@
 const Post = require("../Model/PostModel");
 const User = require("../Model/UserModel");
 
-const getPostsController = async (req, res) => {
-  //   const { data: _id } = req.id;
-  Post.find()
+const getPosts = async (searchObj) => {
+  const results = Post.find(searchObj)
     .populate({
       path: "postedBy",
       select: { password: 0, email: 0 },
@@ -19,16 +18,23 @@ const getPostsController = async (req, res) => {
         path: "retweetData.postedBy",
         select: { password: 0, email: 0 },
       });
-      return res.status(200).json({
-        results,
+
+      results = await Post.populate(results, {
+        path: "replyTo",
       });
+
+      results = await User.populate(results, {
+        path: "replyTo.postedBy",
+        select: { password: 0, email: 0 },
+      });
+
+      return results;
     })
     .catch((err) => {
-      console.log(err);
-      return res.status(400).json({
-        message: err.message,
-      });
+      throw new Error(err.message);
     });
+
+  return results;
 };
 
-module.exports = getPostsController;
+module.exports = getPosts;

@@ -4,8 +4,8 @@ import styles from '../../Styles/postContainer.module.css'
 import Post from './Post';
 import axios from 'axios';
 import {getPostsSuccess} from '../../Redux/Posts/action'
-function PostContainer(props) {
-    const {posts} = useSelector(state=>state.posts)
+function PostContainer({posts,heighLight={}}) {
+   
     const {user} = useSelector(state=>state.user)
     const token = localStorage.getItem("token")
     const dispatch = useDispatch()
@@ -27,6 +27,8 @@ function PostContainer(props) {
         })
     }
 
+   
+
     const handleRetweet = (id)=>{
         
         axios.post(`${process.env.REACT_APP_SERVER_URL}/api/auth/post/${id}/retweet`,{},{
@@ -43,13 +45,18 @@ function PostContainer(props) {
 
         })
     }
+
+    
     return (
+        
         <div className={styles.postsContainer}>
             {
-                posts.map(post=><Post key={post._id} {...post} 
+                user ? 
+                posts.map(post=><Post heighLight={heighLight} key={post._id} post={post} 
                     handleLike={handleLike} 
                     handleRetweet={handleRetweet} 
-                    userId={user._id} />)
+                   
+                    userId={user._id} /> ) : <></>
             }
         </div>
     );

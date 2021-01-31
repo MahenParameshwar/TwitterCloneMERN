@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import PostContainer from '../Components/Posts/PostContainer';
 import PostForm from '../Components/Posts/PostForm';
 import MainLayout from '../Layouts/MainLayout';
@@ -10,14 +10,15 @@ function Home(props) {
     
     const dispatch = useDispatch();
     const token = localStorage.getItem("token")
+    const {posts} = useSelector(state=>state.posts)
     useEffect(()=>{
         dispatch(makeGetUserDataRequest(token))
         dispatch(makeGetPostsRequest(token));
-    })
+    },[])
     return (
-        <MainLayout>
+        <MainLayout title="home">
                <PostForm/>
-               <PostContainer/>
+               <PostContainer posts={posts}/>
         </MainLayout>
     );
 }

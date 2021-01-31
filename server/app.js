@@ -9,6 +9,7 @@ const registerRoute = require("./Routes/register");
 const loginRoute = require("./Routes/login");
 const userRoute = require("./Routes/user");
 const postRoute = require("./Routes/post");
+const profileRoute = require("./Routes/profile");
 
 const app = express();
 const port = 8000;
@@ -24,6 +25,7 @@ app.use("/api", registerRoute);
 app.use("/api", loginRoute);
 app.use("/api", userRoute);
 app.use("/api", postRoute);
+app.use("/api", profileRoute);
 
 app.listen(port, () => {
   console.log("Listeing at port", port);

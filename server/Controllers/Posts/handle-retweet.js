@@ -1,5 +1,5 @@
-const User = require("../Model/UserModel");
-const Post = require("../Model/PostModel");
+const User = require("../../Model/UserModel");
+const Post = require("../../Model/PostModel");
 
 const retweetPostController = async (req, res, next) => {
   //User Id

@@ -10,7 +10,7 @@ function MainLayout(props) {
                 <Navbar styles={styles} />
                 <div className={`${styles.mainSectionContainer} col-10 col-md-8 col-lg-6`}>
                     <div className={styles.titleContainer}>
-                        <h1>Home</h1>
+                        <h1>{props.title}</h1>
                     </div>
                     {
                         props.children
