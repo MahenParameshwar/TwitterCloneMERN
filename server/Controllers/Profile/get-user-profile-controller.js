@@ -6,7 +6,7 @@ const getUserProfileController = async (req, res, next) => {
   try {
     const { username } = req.params;
     const { isReply } = req.query;
-    console.log(isReply);
+    console.log(username);
     let user = await User.findOne({
       username,
     }).select(["-email", "-password"]);

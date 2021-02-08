@@ -12,7 +12,7 @@ const makePostController = async (req, res, next) => {
   if (postId) {
     data.replyTo = postId;
   }
-  console.log(data);
+
   Post.create(data)
     .then(async (newPost) => {
       return next();

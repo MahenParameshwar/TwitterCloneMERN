@@ -10,13 +10,15 @@ const likePostController = async (req, res, next) => {
 
     const isLiked = user.likes && user.likes.includes(postId);
     const option = isLiked ? "$pull" : "$addToSet";
-
+    console.log(postId, userId, isLiked, option);
     //Insert user like; pull delets and addToSet adds unique values to the likes array
-    await User.findByIdAndUpdate(
+    let user1 = await User.findByIdAndUpdate(
       userId,
       { [option]: { likes: postId } },
-      { useFindAndModify: false }
+      { useFindAndModify: false, new: true }
     );
+
+    console.log(user1.likes);
 
     //Insert post like; pull delets and addToSet adds adds unique values to the likes array
     let post = await Post.findByIdAndUpdate(

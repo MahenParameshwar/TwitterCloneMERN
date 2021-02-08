@@ -11,7 +11,7 @@ const getUserDataRequest = () => {
   };
 };
 
-const getUserDataSuccess = (payload) => {
+export const getUserDataSuccess = (payload) => {
   return {
     type: GET_USER_DATA_SUCCESS,
     payload: payload,

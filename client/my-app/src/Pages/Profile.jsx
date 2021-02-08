@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, Route, Switch, useParams } from 'react-router-dom';
 import ImageContainer from '../Components/ImageContainer';
 import MainLayout from '../Layouts/MainLayout';
-import { makeGetUserProfileRequest } from '../Redux/Profile/action';
+import { makeFollowRequest, makeGetUserProfileRequest } from '../Redux/Profile/action';
 import { makeGetUserDataRequest } from '../Redux/User/action';
 import styles from '../Styles/profile.module.css'
 import classnames from 'classnames';
@@ -19,14 +19,26 @@ function Profile({getReply}) {
     const {posts} = useSelector(state=>state.posts);
     const {user} =  useSelector(state=>state.user);
     const token = localStorage.getItem("token")
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+
+
+    const handleFollow = (profileId)=>{
+        console.log(profileId)
+        dispatch(makeFollowRequest({profileId,token}))
+    }
    
     useEffect(()=>{
-        dispatch(makeGetUserProfileRequest({username,getReply}))
+        if(profile === null){
+            dispatch(makeGetUserProfileRequest({username,getReply}))
+        }
+       
         if(user == null){
             dispatch(makeGetUserDataRequest(token))
         }
-    },[username,posts,getReply])
+    },[username,posts,getReply,profile])
+
+    const isFollowing = profile?.followers.includes(user._id)
+   
 
     return (
         <MainLayout title={username}>
@@ -55,12 +67,14 @@ function Profile({getReply}) {
                                 user ?
                                 profile._id !== user._id ?
                                 <>
-                                
+                                {}
                                     <Link className={styles.profileButton} to={`/messages/${profile._id}`}>
                                         <i className="fas  fa-envelope"/>
                                     </Link>
-                                    <button className={classnames(styles.followButton,styles.following)}>
-                                        Following
+                                    <button onClick={()=>handleFollow(profile._id)} className={classnames(styles.followButton,{[styles.following]:isFollowing})}>
+                                       {
+                                           isFollowing ? "Following" : "Follow"
+                                       }
                                     </button>
                                 </> : <></> : <></>
                             }
@@ -78,7 +92,7 @@ function Profile({getReply}) {
                             <div className={styles.followersContainer}>
                                 <Link to={`/profile/${profile.username}/following`} >
                                     <span className={styles.value}>
-                                        {0}
+                                        {profile.following.length}
                                     </span>
                                     <span>
                                         Following
@@ -86,14 +100,14 @@ function Profile({getReply}) {
                                 </Link>
                                 <Link to={`/profile/${profile.username}/followers`} >
                                     <span className={styles.value}>
-                                        {0}
+                                        {profile.followers.length}
                                     </span>
                                     <span>
                                         Followers
                                     </span>
                                 </Link>
                             </div>
-                        </div>
+                     </div>
                     </div>
                     <div className={styles.tabsContainer}>
                             <Tab name={"Posts"} link={`/profile/${profile.username}`} />

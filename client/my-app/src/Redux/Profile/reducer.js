@@ -2,6 +2,10 @@ import {
   GET_USER_PROFILE_FAILURE,
   GET_USER_PROFILE_REQUEST,
   GET_USER_PROFILE_SUCCESS,
+  FOLLOW_REQUEST,
+  FOLLOW_SUCCESS,
+  FOLLOW_FAILURE,
+  UPDATE_PROFILE,
 } from "./actionConstants";
 
 const initState = {
@@ -33,6 +37,17 @@ export const profileReducer = (state = initState, { type, payload }) => {
         error: true,
         message: "User not found",
       };
+    case UPDATE_PROFILE:
+      return {
+        ...state,
+        profile: payload,
+      };
+    case FOLLOW_REQUEST:
+      return {};
+    case FOLLOW_SUCCESS:
+      return {};
+    case FOLLOW_FAILURE:
+      return {};
     default:
       return state;
   }
