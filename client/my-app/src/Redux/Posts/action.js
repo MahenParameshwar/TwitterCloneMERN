@@ -78,11 +78,11 @@ const getPostsFailure = () => {
   };
 };
 
-export const makeGetPostsRequest = ({ token }) => (dispatch) => {
+export const makeGetPostsRequest = (token) => (dispatch) => {
   dispatch(getPostsRequest());
 
   axios
-    .get(`${process.env.REACT_APP_SERVER_URL}/api/posts`, {
+    .get(`${process.env.REACT_APP_SERVER_URL}/api/auth/posts`, {
       headers: {
         Authorization: `bearer ${token}`,
       },

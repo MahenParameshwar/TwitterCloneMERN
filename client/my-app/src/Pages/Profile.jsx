@@ -9,8 +9,7 @@ import styles from '../Styles/profile.module.css'
 import classnames from 'classnames';
 import Tab from '../Components/Tab';
 import PostContainer from '../Components/Posts/PostContainer';
-import ProfilePosts from '../Components/ProfilePosts';
-import ReplyPosts from '../Components/ReplyPosts';
+
 
 
 function Profile({getReply}) {
@@ -23,21 +22,19 @@ function Profile({getReply}) {
 
 
     const handleFollow = (profileId)=>{
-        console.log(profileId)
+       
         dispatch(makeFollowRequest({profileId,token}))
     }
    
     useEffect(()=>{
-        if(profile === null){
-            dispatch(makeGetUserProfileRequest({username,getReply}))
-        }
        
+        dispatch(makeGetUserProfileRequest({username,getReply}))
         if(user == null){
             dispatch(makeGetUserDataRequest(token))
         }
-    },[username,posts,getReply,profile])
+    },[username,posts,getReply])
 
-    const isFollowing = profile?.followers.includes(user._id)
+    const isFollowing = profile?.followers.find(follwer=>follwer._id=== user._id)
    
 
     return (

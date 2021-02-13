@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import FollowersFollowing from '../Pages/FollowersFollowing';
 import Home from '../Pages/Home';
 import Login from '../Pages/Login';
 import Profile from '../Pages/Profile';
@@ -16,6 +17,8 @@ function Routes(props) {
             <PrivateRoute path="/post/:id" exact Component={ViewPost} />
             <PrivateRoute path="/profile/:username/replies" exact getReply={true} Component={Profile} />
             <PrivateRoute path="/profile/:username" exact Component={Profile} getReply={false} />
+            <PrivateRoute path="/profile/:username/following" exact Component={FollowersFollowing}/>
+            <PrivateRoute path="/profile/:username/followers" exact Component={FollowersFollowing}/>
             
         </Switch>
     );

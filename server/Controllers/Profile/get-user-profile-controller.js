@@ -6,7 +6,7 @@ const getUserProfileController = async (req, res, next) => {
   try {
     const { username } = req.params;
     const { isReply } = req.query;
-    console.log(username);
+
     let user = await User.findOne({
       username,
     }).select(["-email", "-password"]);
@@ -14,6 +14,16 @@ const getUserProfileController = async (req, res, next) => {
     if (user == null) {
       throw new Error();
     }
+
+    user = await User.populate(user, {
+      path: "followers",
+      select: { password: 0, email: 0 },
+    });
+
+    user = await User.populate(user, {
+      path: "following",
+      select: { password: 0, email: 0 },
+    });
 
     const searchObj = {
       postedBy: user._id,

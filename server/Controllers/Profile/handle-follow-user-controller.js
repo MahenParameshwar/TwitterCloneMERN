@@ -28,6 +28,16 @@ const handleFollowUserController = async (req, res, next) => {
       { new: true, useFindAndModify: false }
     );
 
+    profile = await User.populate(profile, {
+      path: "followers",
+      select: { password: 0, email: 0 },
+    });
+
+    profile = await User.populate(profile, {
+      path: "following",
+      select: { password: 0, email: 0 },
+    });
+
     profile["email"] = "";
 
     profile["password"] = "";

@@ -92,3 +92,24 @@ export const makeFollowRequest = ({ profileId, token }) => (dispatch) => {
     })
     .catch((err) => {});
 };
+
+export const makeFollowRequestFromFollowPage = ({ profileId, token }) => (
+  dispatch
+) => {
+  return axios
+    .post(
+      `${process.env.REACT_APP_SERVER_URL}/api/auth/profile/${profileId}/follow`,
+      {},
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      }
+    )
+    .then((res) => {
+      console.log(res.data);
+
+      dispatch(getUserDataSuccess(res.data.logedUser));
+    })
+    .catch((err) => {});
+};

@@ -15,7 +15,7 @@ routes.post(
   getPostsController
 );
 
-routes.get("/posts", getPostsController);
+routes.get("/auth/posts", authenticateToken, getPostsController);
 routes.get("/viewpost/:id", getPostController);
 
 routes.put(
