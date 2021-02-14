@@ -32,7 +32,7 @@ function Profile({getReply}) {
         if(user == null){
             dispatch(makeGetUserDataRequest(token))
         }
-    },[username,posts,getReply])
+    },[username,posts,getReply,user?.profilePic])
 
     const isFollowing = profile?.followers.find(follwer=>follwer._id=== user._id)
    
@@ -56,8 +56,8 @@ function Profile({getReply}) {
                     <div className={styles.profileHeaderContainer}>
                         <div className={styles.coverPhotoContainer}>
                             
-                               <ImageContainer profilePic={profile.profilePic} />
-                            
+                               <ImageContainer profilePic={profile.profilePic} showUploadPic={profile._id === user._id}  />
+                                
                         </div>
                         <div className={styles.profileButtonsContainer}>
                             {

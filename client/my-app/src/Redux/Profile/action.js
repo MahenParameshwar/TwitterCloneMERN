@@ -86,7 +86,6 @@ export const makeFollowRequest = ({ profileId, token }) => (dispatch) => {
       }
     )
     .then((res) => {
-      console.log(res.data);
       dispatch(updateProfile(res.data.profile));
       dispatch(getUserDataSuccess(res.data.logedUser));
     })
