@@ -29,7 +29,7 @@ const getUserDataFailure = () => {
 
 export const makeGetUserDataRequest = (token) => (dispatch) => {
   dispatch(getUserDataRequest());
-  console.log(token);
+
   return axios
     .get(`${process.env.REACT_APP_SERVER_URL}/api/auth/user`, {
       headers: {
@@ -66,9 +66,11 @@ const uploadProfilePicFailure = () => {
   };
 };
 
-export const makeUploadProfilePicRequest = ({ token, profilePic }) => (
-  dispatch
-) => {
+export const makeUploadProfilePicRequest = ({
+  token,
+  profilePic,
+  isCoverPic,
+}) => (dispatch) => {
   dispatch(uploadProfilePicRequest());
   console.log(token);
   return axios
@@ -76,6 +78,7 @@ export const makeUploadProfilePicRequest = ({ token, profilePic }) => (
       `${process.env.REACT_APP_SERVER_URL}/api/auth/profile/updateProfilePic`,
       {
         profilePic,
+        isCoverPic,
       },
       {
         headers: {

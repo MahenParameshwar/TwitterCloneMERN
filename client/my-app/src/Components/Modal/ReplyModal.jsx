@@ -33,7 +33,7 @@ function ReplyModal({handleClose,handleShow,show,setShow,post,userId}) {
                 </div>
                 <div className="modal-body">
                     <div className="originalPostContainer">
-                        <Post post={post} userId={userId} disabled={true} />
+                        <Post post={post} userId={userId} disabled={true}  />
                         
                     </div>
                     <div className={styles.postFormContainer}>

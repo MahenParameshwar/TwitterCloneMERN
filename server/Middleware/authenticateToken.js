@@ -16,7 +16,7 @@ const authenticateToken = (req, res, next) => {
     if (err) {
       return res.sendStatus(403);
     }
-    console.log(id);
+
     req.id = id;
     next();
   });

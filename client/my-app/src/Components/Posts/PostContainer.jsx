@@ -10,8 +10,8 @@ function PostContainer({posts,heighLight={}}) {
     const token = localStorage.getItem("token")
     const dispatch = useDispatch()
     
-    const handleLike = (id)=>{
-        
+    const handleLike = (e,id)=>{
+        e.stopPropagation()
         axios.put(`${process.env.REACT_APP_SERVER_URL}/api/auth/post/${id}/like`,{},{
             headers:{
                 Authorization: `bearer ${token}`,
@@ -29,8 +29,8 @@ function PostContainer({posts,heighLight={}}) {
 
    
 
-    const handleRetweet = (id)=>{
-        
+    const handleRetweet = (e,id)=>{
+        e.stopPropagation()
         axios.post(`${process.env.REACT_APP_SERVER_URL}/api/auth/post/${id}/retweet`,{},{
             headers:{
                 Authorization: `bearer ${token}`,

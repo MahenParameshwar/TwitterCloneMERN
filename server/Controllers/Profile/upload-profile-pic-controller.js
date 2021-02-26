@@ -14,15 +14,25 @@ const updateProfilePicController = async (req, res, next) => {
     });
     //currentUser
 
+    console.log(req.body.isCoverPic);
     const uploadResponse = await cloudinary.uploader.upload(
       req.body.profilePic
     );
 
-    let user = await User.findByIdAndUpdate(
-      logedUserId,
-      { profilePic: uploadResponse.url },
-      { new: true, useFindAndModify: false }
-    );
+    const option = req.body.isCoverPic
+      ? {
+          coverPic: uploadResponse.url,
+        }
+      : {
+          profilePic: uploadResponse.url,
+        };
+
+    let user = await User.findByIdAndUpdate(logedUserId, option, {
+      new: true,
+
+      useFindAndModify: false,
+    }).select(["-email", "-password"]);
+
     console.log(user);
 
     return res.status(200).json({

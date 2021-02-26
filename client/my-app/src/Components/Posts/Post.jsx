@@ -23,7 +23,11 @@ function Post({post,handleLike,userId,heighLight,handleRetweet,disabled=false}) 
     let {content,retweetData,postedBy,createdAt,_id,likes,retweetUsers} = post
     
     const handleClose = () => setShow(false);
-    const handleShow = (e) => setShow(true);
+    const handleShow = (e) => {
+        console.log(e)
+        e.stopPropagation();
+        setShow(true)
+    };
 
     const handleCloseDelete = ()=>setShowDelete(false)
 
@@ -68,7 +72,8 @@ function Post({post,handleLike,userId,heighLight,handleRetweet,disabled=false}) 
 
     return (
         postedBy ?
-        <div style={{...heighLight}} className={styles.post}>
+        <>
+        <div style={{...heighLight}} className={styles.post} onClick={(e)=>goToPost(e)} >
             {
                 isRetweet ? (
                 <div className = {styles.retweetContainer}>
@@ -85,10 +90,10 @@ function Post({post,handleLike,userId,heighLight,handleRetweet,disabled=false}) 
                                 {postedBy.firstname+" "+postedBy.lastname}
                             </Link>
                             <span className = {styles.username}> @{postedBy.username}</span>
-                            <span  onClick={(e)=>goToPost(e)} className = {styles.date}> {timeDifference(new Date(),new Date(createdAt))}</span>
+                            <span  className = {styles.date}> {timeDifference(new Date(),new Date(createdAt))}</span>
                             {
                                 postedBy._id === userId ? 
-                                <button style={{...inlineStyle.outline}} onClick={()=>setShowDelete(true)}>
+                                <button style={{...inlineStyle.outline}}  onClick={()=>setShowDelete(true)} disabled={disabled}>
                                     <i className="fas fa-times" />
                                 </button> :
                                 <></>
@@ -115,7 +120,7 @@ function Post({post,handleLike,userId,heighLight,handleRetweet,disabled=false}) 
                                 </div>
                                 <div className={styles.postButtonContainer}>
                                     <button  style={{...inlineStyle.outline}}
-                                    onClick={()=>handleRetweet(_id)}
+                                    onClick={(e)=>handleRetweet(e,_id)}
                                     disabled={disabled}
                                     className={`${styles.postOptionButton} ${hasRetweeted() ? styles.green : ""}`} 
                                     >
@@ -127,7 +132,7 @@ function Post({post,handleLike,userId,heighLight,handleRetweet,disabled=false}) 
                                     <button style={{...inlineStyle.outline}}
                                     disabled={disabled} 
                                     className={`${styles.postOptionButton} ${hasLiked() ? styles.red : ""}`} 
-                                    onClick={()=>handleLike(_id)}>
+                                    onClick={(e)=>handleLike(e,_id)}>
                                         <i className='far fa-heart'></i>
                                         
                                         <span> {likes.length || ""}</span>
@@ -137,9 +142,12 @@ function Post({post,handleLike,userId,heighLight,handleRetweet,disabled=false}) 
                             </div>
                         </div>
                 </div>
-                <ReplyModal show={show} handleClose={handleClose} setShow={setShow}  userId={userId}  post={post} />
-                <DeleteModal show={showDelete} handleClose={handleCloseDelete} setShow={setShowDelete}  userId={userId}  post={post} />
-        </div> : <></>
+                
+        </div>
+        <ReplyModal show={show} handleClose={handleClose} setShow={setShow}  userId={userId}  post={post} />
+        <DeleteModal show={showDelete} handleClose={handleCloseDelete} setShow={setShowDelete}  userId={userId}  post={post} />
+        </>
+        : <></>
    
     );
 }

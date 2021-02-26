@@ -6,6 +6,7 @@ const authenticateToken = require("../Middleware/authenticateToken");
 const likePostController = require("../Controllers/Posts/handle-like");
 const retweetPostController = require("../Controllers/Posts/handle-retweet");
 const deletePostController = require("../Controllers/Posts/handle-delete");
+const searchPostsController = require("../Controllers/Posts/search-post-controller");
 
 const routes = express.Router();
 
@@ -16,6 +17,8 @@ routes.post(
 );
 
 routes.get("/auth/posts", authenticateToken, getPostsController);
+routes.get("/auth/search/posts", authenticateToken, searchPostsController);
+
 routes.get("/viewpost/:id", getPostController);
 
 routes.put(

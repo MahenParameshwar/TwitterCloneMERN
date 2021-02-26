@@ -12,6 +12,9 @@ import {
   DELETE_POST_REQUEST,
   DELETE_POST_SUCCESS,
   DELETE_POST_FAILURE,
+  SEARCH_POST_REQUEST,
+  SEARCH_POST_FAILURE,
+  SEARCH_POST_SUCCESS,
 } from "./actionConstants";
 
 const addPostRequest = () => {
@@ -156,4 +159,40 @@ export const makeDeletePostRequest = ({ token, id }) => (dispatch) => {
     .catch((err) => {
       dispatch(deletePostFailure());
     });
+};
+
+const searchPostRequest = () => {
+  return {
+    type: SEARCH_POST_REQUEST,
+  };
+};
+
+const searchPostSuccess = (payload) => {
+  return {
+    type: SEARCH_POST_SUCCESS,
+    payload: payload,
+  };
+};
+
+const searchPostFailure = () => {
+  return {
+    type: SEARCH_POST_FAILURE,
+  };
+};
+
+export const makeSearchPostsRequest = ({ token, searchQuery }) => (
+  dispatch
+) => {
+  dispatch(searchPostRequest());
+  axios(`${process.env.REACT_APP_SERVER_URL}/api/auth/search/posts`, {
+    method: "GET",
+    headers: {
+      Authorization: `bearer ${token}`,
+    },
+    params: {
+      searchQuery,
+    },
+  })
+    .then((res) => dispatch(searchPostSuccess(res.data.results)))
+    .catch((err) => dispatch(searchPostFailure()));
 };

@@ -11,6 +11,9 @@ import {
   DELETE_POST_SUCCESS,
   DELETE_POST_FAILURE,
   DELETE_POST_REQUEST,
+  SEARCH_POST_REQUEST,
+  SEARCH_POST_SUCCESS,
+  SEARCH_POST_FAILURE,
 } from "./actionConstants";
 
 const initState = {
@@ -19,6 +22,7 @@ const initState = {
   isLoading: false,
   error: false,
   message: "",
+  searchResults: [],
 };
 
 export const postsReducer = (state = initState, { type, payload }) => {
@@ -93,6 +97,25 @@ export const postsReducer = (state = initState, { type, payload }) => {
         isLoading: false,
         error: true,
         message: "Colud not delete post",
+      };
+    case SEARCH_POST_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case SEARCH_POST_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        searchResults: [...payload],
+      };
+
+    case SEARCH_POST_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        message: "Somthing went wrong",
       };
 
     default:

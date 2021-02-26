@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Route, Switch, useParams } from 'react-router-dom';
-import ImageContainer from '../Components/ImageContainer';
+
 import MainLayout from '../Layouts/MainLayout';
 import { makeFollowRequest, makeGetUserProfileRequest } from '../Redux/Profile/action';
 import { makeGetUserDataRequest } from '../Redux/User/action';
@@ -9,15 +9,26 @@ import styles from '../Styles/profile.module.css'
 import classnames from 'classnames';
 import Tab from '../Components/Tab';
 import PostContainer from '../Components/Posts/PostContainer';
+import { useState } from 'react';
+import ImageUploadModal from '../Components/Modal/ImageUploadModal';
+import Loader from '../Components/Loader';
+import ProfileImageContainer from '../Components/ProfileImageContainer';
 
 
 
 function Profile({getReply}) {
     const {username} = useParams();
-    const {profile,error,posts:profilePosts} = useSelector(state=>state.profile);
+    const {profile,error,posts:profilePosts,isLoading} = useSelector(state=>state.profile);
     const {posts} = useSelector(state=>state.posts);
     const {user} =  useSelector(state=>state.user);
     const token = localStorage.getItem("token")
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = (e) => setShow(true);
+
+    
+
     const dispatch = useDispatch();
 
 
@@ -32,13 +43,18 @@ function Profile({getReply}) {
         if(user == null){
             dispatch(makeGetUserDataRequest(token))
         }
-    },[username,posts,getReply,user?.profilePic])
+    },[username,posts,getReply,user?.profilePic,user?.coverPic])
 
     const isFollowing = profile?.followers.find(follwer=>follwer._id=== user._id)
    
 
     return (
+        <>
+        {
+        isLoading && <Loader />   
+      }
         <MainLayout title={username}>
+           
             {
                 error ?( 
                     <div className={styles.errorUser}>
@@ -54,10 +70,24 @@ function Profile({getReply}) {
                 profile ?
                 <>
                     <div className={styles.profileHeaderContainer}>
+
                         <div className={styles.coverPhotoContainer}>
-                            
-                               <ImageContainer profilePic={profile.profilePic} showUploadPic={profile._id === user._id}  />
-                                
+                           
+                            <ProfileImageContainer profilePic={profile.profilePic} showUploadPic={profile._id === user._id}  />
+                            <div className={styles.coverPicBtnContainer} >
+                                { profile._id === user._id && 
+
+                                    <button onClick={handleShow} >
+                                        <i className="fas fa-camera" />
+                                    </button>
+
+                                }
+                               
+                                <ImageUploadModal title={"Upload new Cover Pic"} isCoverPic={true} show={show} setShow={setShow} handleClose={handleClose} handleShow={handleShow} />
+                                </div> 
+                                {
+                                    profile?.coverPic && <img style={{width:"100%",objectFit:"fill",height:"100%"}} src={profile.coverPic} alt="cover pic"/>
+                                }
                         </div>
                         <div className={styles.profileButtonsContainer}>
                             {
@@ -129,6 +159,7 @@ function Profile({getReply}) {
         
           {/*PostContainer */}
        </MainLayout>
+       </>
     );
 }
 

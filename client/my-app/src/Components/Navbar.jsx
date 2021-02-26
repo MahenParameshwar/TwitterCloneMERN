@@ -15,7 +15,7 @@ function Navbar({styles}) {
         <Link to="/">
              <i className="fas fa-home"></i>
         </Link>
-        <Link to="/search">
+        <Link to="/search/posts">
              <i className="fas fa-search"></i>
         </Link>
         <Link to="/notification">

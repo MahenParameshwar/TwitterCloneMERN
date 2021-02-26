@@ -7,9 +7,9 @@ import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import { makeUploadProfilePicRequest } from '../../Redux/User/action';
 
-function ImageUploadModal({handleClose,handleShow,show,setShow,post,userId}) {
+function ImageUploadModal({handleClose,handleShow,show,setShow,title,isCoverPic=false}) {
 const [image, setImage] = useState("");
-  const [cropData, setCropData] = useState("#");
+//   const [cropData, setCropData] = useState("#");
   const [cropper, setCropper] = useState();
   const token = localStorage.getItem("token")
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const [image, setImage] = useState("");
     if (typeof cropper !== "undefined") {
         if(cropper.getCroppedCanvas()){
             console.log(cropper.getCroppedCanvas().toDataURL())
-            dispatch(makeUploadProfilePicRequest({token,profilePic:cropper.getCroppedCanvas().toDataURL()}))
+            dispatch(makeUploadProfilePicRequest({token,profilePic:cropper.getCroppedCanvas().toDataURL(),isCoverPic}))
             handleClose();
         }
         else{
@@ -61,7 +61,7 @@ const [image, setImage] = useState("");
       
             <div className="modal-content">
                 <div className="modal-header">
-                    <h5 className="modal-title" >Upload new profile pic</h5>
+                    <h5 className="modal-title" >{title}</h5>
                     <button type="button" className="close" onClick={handleClose} data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>

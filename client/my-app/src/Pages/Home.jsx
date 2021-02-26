@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
+import Loader from '../Components/Loader';
 import PostContainer from '../Components/Posts/PostContainer';
 import PostForm from '../Components/Posts/PostForm';
 import MainLayout from '../Layouts/MainLayout';
@@ -10,16 +11,22 @@ function Home(props) {
     
     const dispatch = useDispatch();
     const token = localStorage.getItem("token")
-    const {posts} = useSelector(state=>state.posts)
+    const {posts,isLoading} = useSelector(state=>state.posts)
     useEffect(()=>{
         dispatch(makeGetUserDataRequest(token))
         dispatch(makeGetPostsRequest(token));
     },[])
     return (
+        <>
+        {
+            isLoading && <Loader/>
+        }
+        
         <MainLayout title="home">
                <PostForm/>
                <PostContainer posts={posts}/>
         </MainLayout>
+        </>
     );
 }
 
