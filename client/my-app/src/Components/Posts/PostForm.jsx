@@ -36,7 +36,7 @@ function PostForm(props) {
                     <button onClick={submitPost} style={{outline:"none"}} className={styles.submitPostButton} disabled={text === ''}>
                         Tweet
                     </button>
-                    <button onClick={handleShow}  className={classNames(styles.submitPostButton)} >
+                    <button  onClick={handleShow}  className={classNames(styles.submitPostButton)} >
                         Pic
                     </button>
                 </div>

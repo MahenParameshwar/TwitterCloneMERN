@@ -7,22 +7,31 @@ import { makeFollowRequest, makeFollowRequestFromFollowPage, makeGetUserProfileR
 import { makeGetUserDataRequest } from '../Redux/User/action';
 import styles from '../Styles/profile.module.css'
 import classnames from 'classnames';
+import { useDebounce } from './Hooks/useDebounce';
 
-function FollowUsers({followArr,noFollowersMsg,showFollowBtn=false}) {
+ function FollowUsers({followArr,noFollowersMsg,showFollowBtn=false}) {
     
-   console.log(followArr)
+  
     const {user} =  useSelector(state=>state.user);
-   
+    const [profileId,setProfileId] = useState("")
     const token = localStorage.getItem("token")
     const dispatch = useDispatch();
 
+    const setIdThenFollow = async (id)=>{
+        await setProfileId(id)
+        handleFollow()
+    }
+
+    
  
 
 
-    const handleFollow = (profileId)=>{
-      
-        dispatch(makeFollowRequestFromFollowPage({profileId,token}))
-    }
+    const handleFollow = useDebounce(()=>{
+            dispatch(makeFollowRequestFromFollowPage({profileId,token}))
+            },500)
+
+    
+        
    
     
 
@@ -49,7 +58,7 @@ function FollowUsers({followArr,noFollowersMsg,showFollowBtn=false}) {
                     </div>
 
                     {user && showFollowBtn && follow._id !== user._id ?
-                    <button  onClick={()=>handleFollow(follow._id)} className={classnames(styles.followButton,{[styles.following]:isFollowing(follow._id)})}>
+                    <button  onClick={()=>setIdThenFollow(follow._id)} className={classnames(styles.followButton,{[styles.following]:isFollowing(follow._id)})}>
                                        {
                                            isFollowing(follow._id)  ? "Following" : "Follow"
                                        }

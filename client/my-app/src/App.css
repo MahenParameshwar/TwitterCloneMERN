@@ -12,7 +12,10 @@
     --green:rgb(23,191,99);
     --greenBackground:rgba(23,191,99,0.2);
 }
-
+body{
+    min-height: 100vh;
+    position: relative;
+}
 *{
     outline: none;
 }
@@ -40,7 +43,7 @@ button {
     background-color: transparent;
     border: none;
     color: var(--greyButtonText);
-    outline: none;    
+    outline: none !important;    
 }
 
 .modal-content{
@@ -55,13 +58,14 @@ i{
 
 
 .center{
-    width:100%;
+   
     z-index:100;
     position:absolute;
     display: flex;
 	align-items: center;
 	justify-content: center;
     height:100%;
+    width: 100%;
     background-color:rgba(0,0,0,0.4)
 }
 
