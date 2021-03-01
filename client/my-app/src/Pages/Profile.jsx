@@ -95,9 +95,9 @@ function Profile({getReply}) {
                                 profile._id !== user._id ?
                                 <>
                                 {}
-                                    <Link className={styles.profileButton} to={`/messages/${profile._id}`}>
+                                    <button className={styles.profileButton} to="" >
                                         <i className="fas  fa-envelope"/>
-                                    </Link>
+                                    </button>
                                     <button onClick={()=>handleFollow(profile._id)} className={classnames(styles.followButton,{[styles.following]:isFollowing})}>
                                        {
                                            isFollowing ? "Following" : "Follow"

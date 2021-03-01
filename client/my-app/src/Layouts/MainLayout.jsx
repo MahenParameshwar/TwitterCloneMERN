@@ -64,7 +64,8 @@ function MainLayout(props) {
                         isLoading ? <NewsLoader/> :
                         newsArr && newsArr.filter((_,i)=>i <= 10).map((news,index)=>{
                             if( news.multimedia?.length)
-                            return  <div onClick={()=>goTo(news.url)} key={index} style={{display:"flex",justifyContent:"space-between",marginBottom:"10px",cursor:"pointer"}}>
+                            return  <div onClick={()=>goTo(news.url)} key={index} 
+                            style={{display:"flex",justifyContent:"space-between",marginBottom:"10px",cursor:"pointer"}}>
                                 <h6>
                                     {news.title}
                                 </h6>

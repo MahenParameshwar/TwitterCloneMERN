@@ -12,10 +12,7 @@
     --green:rgb(23,191,99);
     --greenBackground:rgba(23,191,99,0.2);
 }
-body{
-    min-height: 100vh;
-    position: relative;
-}
+
 *{
     outline: none;
 }
@@ -60,7 +57,7 @@ i{
 .center{
    
     z-index:100;
-    position:absolute;
+    position:fixed;
     display: flex;
 	align-items: center;
 	justify-content: center;
