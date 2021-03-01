@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link,useParams } from 'react-router-dom';
 import ImageContainer from '../Components/ImageContainer';
@@ -10,9 +10,9 @@ import classnames from 'classnames';
 
 function FollowUsers({followArr,noFollowersMsg,showFollowBtn=false}) {
     
-   
+   console.log(followArr)
     const {user} =  useSelector(state=>state.user);
-    
+   
     const token = localStorage.getItem("token")
     const dispatch = useDispatch();
 
@@ -47,7 +47,8 @@ function FollowUsers({followArr,noFollowersMsg,showFollowBtn=false}) {
                             </span>
                         </div>
                     </div>
-                    {showFollowBtn && follow._id !== user._id ?
+
+                    {user && showFollowBtn && follow._id !== user._id ?
                     <button  onClick={()=>handleFollow(follow._id)} className={classnames(styles.followButton,{[styles.following]:isFollowing(follow._id)})}>
                                        {
                                            isFollowing(follow._id)  ? "Following" : "Follow"

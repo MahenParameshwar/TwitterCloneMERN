@@ -7,7 +7,7 @@ import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import { makeUploadProfilePicRequest } from '../../Redux/User/action';
 
-function ImageUploadModal({handleClose,handleShow,show,setShow,title,isCoverPic=false}) {
+function ImageUploadModal({handleClose,handleShow,show,setShow,title,isCoverPic=false,isTweetPic=false,setTweetPic}) {
 const [image, setImage] = useState("");
 //   const [cropData, setCropData] = useState("#");
   const [cropper, setCropper] = useState();
@@ -32,8 +32,13 @@ const [image, setImage] = useState("");
     
     if (typeof cropper !== "undefined") {
         if(cropper.getCroppedCanvas()){
-            console.log(cropper.getCroppedCanvas().toDataURL())
+           
+            if(isTweetPic){
+                setTweetPic(cropper.getCroppedCanvas().toDataURL())
+            }
+            else
             dispatch(makeUploadProfilePicRequest({token,profilePic:cropper.getCroppedCanvas().toDataURL(),isCoverPic}))
+            
             handleClose();
         }
         else{
@@ -100,4 +105,3 @@ const [image, setImage] = useState("");
 }
 
 export default ImageUploadModal;
-

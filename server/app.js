@@ -43,6 +43,6 @@ app.use("/api", userRoute);
 app.use("/api", postRoute);
 app.use("/api", profileRoute);
 
-app.listen(port, () => {
-  console.log("Listeing at port", port);
+app.listen(process.env.PORT || 8000, () => {
+  console.log("You are connected");
 });

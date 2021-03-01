@@ -5,6 +5,7 @@ import {
   UPLOAD_PROFILE_PIC_REQUEST,
   UPLOAD_PROFILE_PIC_SUCCESS,
   UPLOAD_PROFILE_PIC_FAILURE,
+  GET_RECOMDATIONS_SUCCESS,
 } from "./actionConstants";
 
 const initState = {
@@ -12,6 +13,7 @@ const initState = {
   isLoading: false,
   error: false,
   message: "",
+  recomdations: [],
 };
 
 export const userReducer = (state = initState, { type, payload }) => {
@@ -49,6 +51,12 @@ export const userReducer = (state = initState, { type, payload }) => {
         ...state,
         isLoading: false,
         message: "Colud not Uupload pic",
+      };
+    case GET_RECOMDATIONS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        recomdations: payload,
       };
 
     default:

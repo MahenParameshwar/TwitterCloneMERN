@@ -137,7 +137,7 @@ function Profile({getReply}) {
                      </div>
                     </div>
                     <div className={styles.tabsContainer}>
-                            <Tab name={"Posts"} link={`/profile/${profile.username}`} />
+                            <Tab name={"Tweets"} link={`/profile/${profile.username}`} />
                             <Tab name={"Replies"} link={`/profile/${profile.username}/replies`} />
                     </div>
                    <Switch>

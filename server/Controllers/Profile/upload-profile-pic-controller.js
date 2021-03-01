@@ -14,7 +14,6 @@ const updateProfilePicController = async (req, res, next) => {
     });
     //currentUser
 
-    console.log(req.body.isCoverPic);
     const uploadResponse = await cloudinary.uploader.upload(
       req.body.profilePic
     );

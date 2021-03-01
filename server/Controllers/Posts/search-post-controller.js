@@ -3,13 +3,7 @@ const User = require("../../Model/UserModel");
 const getPosts = require("../../Utils/getPosts");
 
 const searchPostsController = async (req, res) => {
-  const { data: _id } = req.id;
-
   try {
-    let user = await User.findById(_id);
-    let objectIds = user.following;
-    objectIds.push(_id);
-
     let results = await getPosts({
       content: { $regex: req.query.searchQuery, $options: "i" },
     });

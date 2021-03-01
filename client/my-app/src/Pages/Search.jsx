@@ -8,6 +8,8 @@ import { makeGetUserDataRequest } from '../Redux/User/action';
 import styles from '../Styles/profile.module.css'
 import { DebounceInput } from "react-debounce-input";
 import PostContainer from '../Components/Posts/PostContainer';
+import { makeSearchProfilesRequest } from '../Redux/Profile/action';
+import FollowUsers from '../Components/FollowUsers';
 
 
 function Search({getUsers=false}) {
@@ -15,7 +17,8 @@ function Search({getUsers=false}) {
    const [search,setSearch] = useState("");
    
     const token = localStorage.getItem("token")
-    const {posts,isLoading,searchResults} = useSelector(state=>state.posts)
+    const {posts,isLoading,searchPostsResults} = useSelector(state=>state.posts)
+    const {searchProfileResults} = useSelector(state=>state.profile)
     useEffect(()=>{
         dispatch(makeGetUserDataRequest(token))
         dispatch(makeGetPostsRequest(token));    
@@ -29,7 +32,10 @@ function Search({getUsers=false}) {
         }
         if(getUsers)
         {
-            
+            dispatch(makeSearchProfilesRequest({
+                token,
+                searchQuery:e.target.value
+            }))
         }
         else
         dispatch(makeSearchPostsRequest({
@@ -55,10 +61,10 @@ function Search({getUsers=false}) {
             </div>
                    <Switch>
                         <Route path="/search/users" exact>
-                                <div>Users</div>
+                                {search && <FollowUsers followArr={searchProfileResults} showFollowBtn={true} />}
                         </Route>
                         <Route path="/search/posts" exact>{
-                            search ? <PostContainer posts={searchResults} /> : <></>
+                            search && <PostContainer disabled={true}  posts={searchPostsResults}  /> 
                         
                         }
                             

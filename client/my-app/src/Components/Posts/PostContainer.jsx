@@ -4,7 +4,7 @@ import styles from '../../Styles/postContainer.module.css'
 import Post from './Post';
 import axios from 'axios';
 import {getPostsSuccess} from '../../Redux/Posts/action'
-function PostContainer({posts,heighLight={}}) {
+function PostContainer({posts,heighLight={},disabled=false}) {
    
     const {user} = useSelector(state=>state.user)
     const token = localStorage.getItem("token")
@@ -52,7 +52,7 @@ function PostContainer({posts,heighLight={}}) {
         <div className={styles.postsContainer}>
             {
                 user ? 
-                posts.map(post=><Post heighLight={heighLight} key={post._id} post={post} 
+                posts.map(post=><Post disabled={disabled} heighLight={heighLight} key={post._id} post={post} 
                     handleLike={handleLike} 
                     handleRetweet={handleRetweet} 
                    

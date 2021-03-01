@@ -36,7 +36,7 @@ const addPostFailure = () => {
   };
 };
 
-export const makeAddPostRequest = ({ token, content, postId }) => (
+export const makeAddPostRequest = ({ token, content, postId, tweetPic }) => (
   dispatch
 ) => {
   dispatch(addPostRequest());
@@ -44,7 +44,7 @@ export const makeAddPostRequest = ({ token, content, postId }) => (
   return axios
     .post(
       `${process.env.REACT_APP_SERVER_URL}/api/auth/post`,
-      { content, postId },
+      { content, postId, tweetPic },
       {
         headers: {
           Authorization: `bearer ${token}`,

@@ -22,7 +22,7 @@ function Home(props) {
             isLoading && <Loader/>
         }
         
-        <MainLayout title="home">
+        <MainLayout title="home" show={true}>
                <PostForm/>
                <PostContainer posts={posts}/>
         </MainLayout>

@@ -22,7 +22,7 @@ const initState = {
   isLoading: false,
   error: false,
   message: "",
-  searchResults: [],
+  searchPostsResults: [],
 };
 
 export const postsReducer = (state = initState, { type, payload }) => {
@@ -107,7 +107,7 @@ export const postsReducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
-        searchResults: [...payload],
+        searchPostsResults: [...payload],
       };
 
     case SEARCH_POST_FAILURE:

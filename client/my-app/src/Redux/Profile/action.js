@@ -8,6 +8,9 @@ import {
   FOLLOW_SUCCESS,
   FOLLOW_FAILURE,
   UPDATE_PROFILE,
+  SEARCH_PROFILES_FAILURE,
+  SEARCH_PROFILES_REQUEST,
+  SEARCH_PROFILES_SUCCESS,
 } from "./actionConstants";
 
 const getProfileRequest = () => {
@@ -111,4 +114,40 @@ export const makeFollowRequestFromFollowPage = ({ profileId, token }) => (
       dispatch(getUserDataSuccess(res.data.logedUser));
     })
     .catch((err) => {});
+};
+
+const searchProfilesRequest = () => {
+  return {
+    type: SEARCH_PROFILES_REQUEST,
+  };
+};
+
+const searchProfilesSuccess = (payload) => {
+  return {
+    type: SEARCH_PROFILES_SUCCESS,
+    payload: payload,
+  };
+};
+
+const searchProfilesFailure = () => {
+  return {
+    type: SEARCH_PROFILES_FAILURE,
+  };
+};
+
+export const makeSearchProfilesRequest = ({ token, searchQuery }) => (
+  dispatch
+) => {
+  dispatch(searchProfilesRequest());
+  axios(`${process.env.REACT_APP_SERVER_URL}/api/auth/search/profiles`, {
+    method: "GET",
+    headers: {
+      Authorization: `bearer ${token}`,
+    },
+    params: {
+      searchQuery,
+    },
+  })
+    .then((res) => dispatch(searchProfilesSuccess(res.data.results)))
+    .catch((err) => dispatch(searchProfilesFailure()));
 };

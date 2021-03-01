@@ -6,6 +6,7 @@ import {
   UPLOAD_PROFILE_PIC_REQUEST,
   UPLOAD_PROFILE_PIC_SUCCESS,
   UPLOAD_PROFILE_PIC_FAILURE,
+  GET_RECOMDATIONS_SUCCESS,
 } from "./actionConstants";
 
 const getUserDataRequest = () => {
@@ -95,4 +96,24 @@ export const makeUploadProfilePicRequest = ({
       }
       dispatch(uploadProfilePicFailure());
     });
+};
+
+const getRecomadationsSuccess = (payload) => {
+  return {
+    type: GET_RECOMDATIONS_SUCCESS,
+    payload: payload,
+  };
+};
+
+export const makeGetRecomdationsRequest = ({ token }) => (dispatch) => {
+  axios
+    .get(`${process.env.REACT_APP_SERVER_URL}/api/auth/profiles`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      dispatch(getRecomadationsSuccess(res.data.results));
+    })
+    .catch((err) => {});
 };

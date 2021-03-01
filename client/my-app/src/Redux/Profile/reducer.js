@@ -6,6 +6,9 @@ import {
   FOLLOW_SUCCESS,
   FOLLOW_FAILURE,
   UPDATE_PROFILE,
+  SEARCH_PROFILES_FAILURE,
+  SEARCH_PROFILES_REQUEST,
+  SEARCH_PROFILES_SUCCESS,
 } from "./actionConstants";
 
 const initState = {
@@ -14,6 +17,7 @@ const initState = {
   message: "",
   profile: null,
   posts: [],
+  searchProfileResults: [],
 };
 
 export const profileReducer = (state = initState, { type, payload }) => {
@@ -48,6 +52,25 @@ export const profileReducer = (state = initState, { type, payload }) => {
       return {};
     case FOLLOW_FAILURE:
       return {};
+    case SEARCH_PROFILES_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case SEARCH_PROFILES_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        searchProfileResults: [...payload],
+      };
+
+    case SEARCH_PROFILES_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        message: "Somthing went wrong",
+      };
     default:
       return state;
   }

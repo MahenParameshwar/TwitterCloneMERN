@@ -18,12 +18,12 @@ function Navbar({styles}) {
         <Link to="/search/posts">
              <i className="fas fa-search"></i>
         </Link>
-        <Link to="/notification">
+        {/* <Link to="/notification">
              <i className="fas fa-bell"></i>
         </Link>
         <Link to="/messages">
              <i className="fas fa-envelope"></i>
-        </Link>
+        </Link> */}
         <Link to={`/profile/${user.username}`}>
              <i className="fas fa-user"></i>
         </Link>

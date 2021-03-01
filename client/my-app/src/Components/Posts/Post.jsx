@@ -11,7 +11,7 @@ const inlineStyle = {
         outline:"none"
     }
 }
-function Post({post,handleLike,userId,heighLight,handleRetweet,disabled=false}) {
+function Post({post,handleLike,userId,heighLight,handleRetweet,disabled=false,hide}) {
     
     const [show, setShow] = useState(false);
     
@@ -93,7 +93,7 @@ function Post({post,handleLike,userId,heighLight,handleRetweet,disabled=false}) 
                             <span  className = {styles.date}> {timeDifference(new Date(),new Date(createdAt))}</span>
                             {
                                 postedBy._id === userId ? 
-                                <button style={{...inlineStyle.outline}}  onClick={()=>setShowDelete(true)} disabled={disabled}>
+                                <button  style={{...inlineStyle.outline}}  onClick={()=>setShowDelete(true)} disabled={disabled}>
                                     <i className="fas fa-times" />
                                 </button> :
                                 <></>
@@ -111,6 +111,9 @@ function Post({post,handleLike,userId,heighLight,handleRetweet,disabled=false}) 
                         }
                         <div className={styles.postBody}>
                             <span>{content}</span>
+                        </div>
+                        <div >
+                        {post.tweetPic && <img style={{width:"100%",margin:"20px 0px"}} src={post.tweetPic} alt=""/>}
                         </div>
                         <div className={styles.postFooter}>
                             <div className={styles.postButtonContainer}>

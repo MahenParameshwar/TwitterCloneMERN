@@ -17,6 +17,9 @@ const postSchema = new Schema(
     retweetUsers: [{ type: Schema.Types.ObjectId, ref: "User" }],
     retweetData: { type: Schema.Types.ObjectId, ref: "Post" },
     replyTo: { type: Schema.Types.ObjectId, ref: "Post" },
+    tweetPic: {
+      type: String,
+    },
   },
   {
     versionKey: false,
