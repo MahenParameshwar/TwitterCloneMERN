@@ -52,6 +52,7 @@
     color: var(--blue);
     font-weight: bold;
     padding: 5px 15px;
+    height: 40px;
     border-radius: 60px;
     display: inline-block;
     margin-left: var(--spacing);
@@ -191,7 +192,7 @@
   
   .userImageContainer img {
     height: 100%;
-   width: 100%;
+    width: 100%;
     border-radius: 50%;
     background-color: white;
 }

@@ -6,6 +6,7 @@ import { loginReducer } from "./Login/reducer";
 import { userReducer } from "./User/reducer";
 import { postsReducer } from "./Posts/reducer";
 import { profileReducer } from "./Profile/reducer";
+import { newsReducer } from "./News/reducer";
 
 const rootReducer = combineReducers({
   register: registerReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   posts: postsReducer,
   profile: profileReducer,
+  news: newsReducer,
 });
 
 const createComposer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

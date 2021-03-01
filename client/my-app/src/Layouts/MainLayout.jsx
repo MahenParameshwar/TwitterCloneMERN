@@ -4,28 +4,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import FollowUsers from '../Components/FollowUsers';
 import Navbar from '../Components/Navbar';
+import NewsLoader from '../Components/NewsLoader';
+import { makeGetNewsRequest } from '../Redux/News/action';
 import { makeGetRecomdationsRequest } from '../Redux/User/action';
 import styles from '../Styles/main.module.css'
 
 function MainLayout(props) {
-    const [newsArr,setNewArr] = useState(null);
+    const {newsArr,isLoading} = useSelector(state=>state.news)
     const {recomdations} = useSelector(state=>state.user)
+    
     const token = localStorage.getItem("token")
     const dispatch = useDispatch()
    
     useEffect(()=>{
         
      
-        axios.get("https://api.nytimes.com/svc/topstories/v2/home.json?api-key=s7ukuiP96CJTGSxmsjRGusveK0FWGiiH")
-        .then(res=>setNewArr(res.data.results)).catch(err=>{        
-        })
+      
         dispatch(makeGetRecomdationsRequest({token}))
+        dispatch(makeGetNewsRequest())
      
         
     },[])
 
     return (
         <div className='wrapper'>
+             
             <div className="row">
                 <Navbar styles={styles} />
                 <div className={`${styles.mainSectionContainer} col-10 col-md-10 col-lg-6`}>
@@ -56,6 +59,7 @@ function MainLayout(props) {
                     </div>
                     <h1 style={{marginBottom:"40px"}}>What's happening ?</h1>
                     {
+                        isLoading ? <NewsLoader/> :
                         newsArr && newsArr.filter((_,i)=>i <= 10).map((news,index)=>{
                             if( news.multimedia?.length)
                             return  <div key={index} style={{display:"flex",justifyContent:"space-between",marginBottom:"10px"}}>
@@ -70,12 +74,14 @@ function MainLayout(props) {
                                     
                                 </div>
                             </div>
-                            
+                            else
+                            return null                 
                         })
                     }
                 </div>
                 }
             </div>
+           
         </div>
     );
 }
