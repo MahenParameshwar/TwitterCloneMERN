@@ -1,6 +1,6 @@
 # TwitterCloneMERN
 
-# Amazon-Clone-React
+
 
 <div style="font-size:24px;font-family:sans-serif">
   Twitter is a social networking website which alows users to post messages and pictures and stay connected to the world.
